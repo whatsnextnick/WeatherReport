@@ -8,7 +8,7 @@ $(document).ready(function() {
     };
   });
 
-  //Retrieve city value 
+  //Retrieve city input value 
   $("#submitbtn").click(function() {
     event.preventDefault();
     
@@ -23,25 +23,44 @@ $(document).ready(function() {
       $("#history li:last-child").remove();}
 
     $("#search").val("");
-    $("#cityname").append($("<h2>").addClass("card-title").text(city));
     
   var apiKey = "&appid=5d604db65fd998007c9f84ed1979695a";
   var currentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city  + apiKey;
     
-  // Get and post data per city
+  // Get Request - Openweathermap API
   $.ajax({
     url: currentWeatherURL,
     method: "GET"
   })
   .then(function (response){
   console.log(response.name);
+
+    //Retrieve and display current weather 
     function displayweather (){
-      $("#cityname").append($("<h2>").addClass("card-title").text(response.name));
-      $("#f-icon").append(weatherIcon);
+      //reset values after each submission
+      $("crntwethertitle").empty();
+      $(".cityname").empty();
+      $(".c-icon").empty();
+      $(".c-temp").empty();
+      $(".c-date").empty();
+      $(".c-humidity").empty();
+      $(".c-wind").empty();
+     
+      $("crntwethertitle").prepend("<hr>");
+      $(".cityname").append($("<h2>").addClass("card-title").text(response.name));
+      $(".c-icon").append($("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"));
+      var temper = parseInt(response.main.temp);
+      var temper = (Math.trunc(temper-273.15) * 9/5 +32).toString();
+
+      $(".c-temp").append($("<p>").text(temper + "°F"));
+      $(".c-date").append($("<p>").text(response.dt));
+      $(".c-humidity").append($("<p>").text("humidity: " + response.main.humidity));
+      $(".c-wind").append($("<p>").text("wind speed: " + response.wind.speed + "mph"));
+
       var cityName = $("<h2>").addClass("card-title").text(city);
       var weatherIcon = $("img").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"); 
       //var currentDate = $("<h3>").addClass("card-title").text(currentDate.toLocaleDateString("en-US"));
-      var temp = $("<p>")
+
     
     };
   displayweather();
