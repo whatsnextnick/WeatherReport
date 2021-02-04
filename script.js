@@ -49,27 +49,38 @@ $(document).ready(function() {
       $("crntwethertitle").prepend("<hr>");
       $(".cityname").append($("<h2>").addClass("card-title").text(response.name));
       $(".c-icon").append($("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"));
-      var temper = parseInt(response.main.temp);
-      var temper = (Math.trunc(temper-273.15) * 9/5 +32).toString();
-
+      var temper = parseInt(response.main.temp); //convert temp response into Int
+      var temper = (Math.trunc(temper-273.15) * 9/5 +32).toString(); //display in °F
       $(".c-temp").append($("<p>").text(temper + "°F"));
       $(".c-date").append($("<p>").text(response.dt));
       $(".c-humidity").append($("<p>").text("humidity: " + response.main.humidity));
       $(".c-wind").append($("<p>").text("wind speed: " + response.wind.speed + "mph"));
-
-      var cityName = $("<h2>").addClass("card-title").text(city);
-      var weatherIcon = $("img").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"); 
-      //var currentDate = $("<h3>").addClass("card-title").text(currentDate.toLocaleDateString("en-US"));
-
     
     };
-  displayweather();
-  });
-  //var forecastURL = "http://api.openweathermap.org/data/2.5/forecasat?q=" + city  + apiKey;
+    displayweather();
 
-  // $.ajax({
-    //url: forecastURL,
-    //method: "GET"
-  //})
-  }); 
+    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + apiKey
+
+    $.ajax({
+      url: forecastURL,
+      method: "GET"
+    })
+    .then(function (forecastRES){
+    console.log(forecastRES);
+    
+    function displayforecast(){
+      $(".ftrweatherrow").empty();
+      for(i=0; i<5; i++){
+
+        $(".ftrweatherrow").append($("<div id='forecast"+ i +"' class='card small col-md-4 forecastcards'>"));
+        $("#forecast" + i).append($("<p>").text(list[i].main.temp))
+      };
+    };
+    displayforecast();
+    });
+    
+  });
+
+  });
+
 });

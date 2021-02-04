@@ -3,6 +3,13 @@
 }
 
 .cityname {
-    font-weight: bold;
+    font-weight: 900;
     color: midnightblue;
+}
+
+.forecastcards {
+    width:16em;
+    align-items: center;
+    text-align:center;
+    display:inline-block;
 }
