@@ -25,7 +25,7 @@ $(document).ready(function() {
     $("#search").val("");
     
   var apiKey = "&appid=5d604db65fd998007c9f84ed1979695a";
-  var currentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city  + apiKey;
+  var currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city  + apiKey;
     
   // Get Request - Openweathermap API
   $.ajax({
@@ -59,7 +59,7 @@ $(document).ready(function() {
     };
     displayweather();
 
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + apiKey
+    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + apiKey
 
     $.ajax({
       url: forecastURL,
