@@ -46,7 +46,7 @@ $(document).ready(function() {
       $(".c-humidity").empty();
       $(".c-wind").empty();
      
-      $("crntwethertitle").prepend("<hr>");
+      $("crntwethertitle").prepend("<br>");
       $(".cityname").append($("<h2>").addClass("card-title").text(response.name));
       $(".c-icon").append($("<img>").attr("src", "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png"));
       var temper = parseInt(response.main.temp); //convert temp response into Int
@@ -70,10 +70,16 @@ $(document).ready(function() {
     
     function displayforecast(){
       $(".ftrweatherrow").empty();
-      for(i=0; i<5; i++){
-
+      for(i=0; i<=39; i+=8){         
+        
+        console.log(i);
         $(".ftrweatherrow").append($("<div id='forecast"+ i +"' class='card small col-md-4 forecastcards'>"));
-        $("#forecast" + i).append($("<p>").text(list[i].main.temp))
+        $("#forecast" + i).append($("<p>").text(forecastRES.list[i].dt_txt.substr(0,10)));
+        $("#forecast" + i).append($("<img>").attr("src", "https://openweathermap.org/img/w/" + forecastRES.list[i].weather[0].icon + ".png"));
+        var temper = parseInt(forecastRES.list[i].main.temp);
+        var temper = (Math.trunc(temper-273.15) * 9/5 +32).toString();
+        $("#forecast" + i).append($("<p>").text(temper + "°F"));
+        $("#forecast" + i).append($("<p>").text("humidity: " + forecastRES.list[i].main.humidity));
       };
     };
     displayforecast();
