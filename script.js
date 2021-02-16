@@ -52,7 +52,11 @@ $(document).ready(function() {
       var temper = parseInt(response.main.temp); //convert temp response into Int
       var temper = (Math.trunc(temper-273.15) * 9/5 +32).toString(); //display in °F
       $(".c-temp").append($("<p>").text(temper + "°F"));
-      $(".c-date").append($("<p>").text(response.dt));
+      var currentdate = new Date().toString().split(" ")
+      var formatdate = currentdate[3] + "-" + currentdate[1] + "-" + currentdate[2];
+      $(".c-date").append($("<p>").text(formatdate));
+      // for loop adding + 1 to the index  
+      console.log(new Date());
       $(".c-humidity").append($("<p>").text("humidity: " + response.main.humidity));
       $(".c-wind").append($("<p>").text("wind speed: " + response.wind.speed + "mph"));
     
